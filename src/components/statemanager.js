@@ -3,8 +3,7 @@ import LoginClass from './login'
 import Store from './store'
 import Collection from './collection'
 function StateManager(props){
-    
-    const url = "https://valohubapi.herokuapp.com"
+    const url = process.env.REACT_APP_APIURL || "https://valohubapi.herokuapp.com"
     if(props.state == 1){
         return <LoginClass url={url} stateFn = {props.stateFn} />
     }else if(props.state ==2 ){

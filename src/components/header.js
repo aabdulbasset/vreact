@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faShop,faCrosshairs,faBriefcase,faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
 let stateFn
 function manageButtons(state,reqState){
-    let base = "md:w-10 md:h-10 w-5 h-5 mr-4 hover:scale-110 transition-all duration-[200ms] cursor-pointer"
+    let base = "md:w-10 md:h-10 w-5 h-5 pb-1 mr-4 hover:scale-110 transition-all duration-[200ms] cursor-pointer"
     if(state == reqState){
         base += " text-pinky border-b-4 border-pinky"
     }

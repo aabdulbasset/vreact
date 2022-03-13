@@ -13,6 +13,10 @@
   height: 80px;
 }
 
+hr.solid {
+  border-top: 3px solid #bbb;
+}
+
 .App-header {
   background-color: #222;
   height: 150px;
@@ -49,8 +53,11 @@ input{
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #fff;
+  background-color:white;
   margin: -4px 0 0 -4px;
+}
+.black div:after{
+  background-color:black;
 }
 .lds-roller div:nth-child(1) {
   animation-delay: -0.036s;

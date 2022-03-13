@@ -3,15 +3,15 @@ import React,{useState,Component} from 'react'
 const LoginForm = ()=>{
     return (
         <>
-        <input type="text" className='rounded-md p-2' placeholder='username' name="username" id="username"></input>
-        <input type="password" className='rounded-md p-2 mt-4' placeholder='password' name="password" id="password"></input>
+        <input type="text" className='rounded-md p-2' placeholder='username' name="username" id="username" required></input>
+        <input type="password" className='rounded-md p-2 mt-4' placeholder='password' name="password" id="password" required></input>
         </>
     )
 }
 const MfaForm = ()=>{
     return (
         <>
-        <input className='rounded-md p-2' id="code" type="number" name="mfa" placeholder='2FA code'></input>
+        <input className='rounded-md p-2' id="code" type="number" name="mfa" placeholder='2FA code' required></input>
         </>
     )
 }

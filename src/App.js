@@ -2,8 +2,7 @@ import React, {useState,useEffect } from 'react';
 import './App.css';
 import StateManager from './components/statemanager'
 import Header from './components/header.js'
-import { Routes, Route } from "react-router-dom";
-import Test from './components/test'
+import {ToastContainer} from 'react-toastify'
 
 function App(){
 
@@ -12,9 +11,6 @@ function App(){
     setStage(2)
     
   }
-  <Routes>
-    <Route path="/collection" element={<Test />} />
-  </Routes>
   function checkToken(){
     if(localStorage.getItem("authToken")){
       let authToken
@@ -42,6 +38,7 @@ function App(){
       < Header state = {stage} stateFn = {setStage}></Header>
       <div className='flex items-center justify-center'>
         <StateManager state={stage} stateFn = {setStage} />
+        <ToastContainer />
       </div>
     </div>
   );
