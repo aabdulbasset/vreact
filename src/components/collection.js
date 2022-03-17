@@ -3,6 +3,7 @@ import {Component} from 'react'
 import ClipboardJS from 'clipboard'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Card from './card'
 let clipped
 class Collection extends Component{
     constructor(props){
@@ -14,7 +15,6 @@ class Collection extends Component{
             link: ""
         }
         this.loading = this.loading.bind(this)
-        this.collection = this.collection.bind(this)
         this.handleLink = this.handleLink.bind(this)
         this.categorize = this.categorize.bind(this)
     }
@@ -78,13 +78,7 @@ class Collection extends Component{
             </div>
         )
     }
-    collection(skin){
-        return (
-            <div className='p-2 w-[320px] h-[190px] rounded-md bg-modelblue flex items-center justify-center'>
-                <img className='max-h-[60%]' src={skin.icon}></img>
-            </div>
-        )
-    }
+
     async handleLink(){
         const result = await fetch(this.props.url + "/share/create",{
             method:"post",
@@ -116,13 +110,14 @@ class Collection extends Component{
         </div>
     }
     render(){
+        let types = ['snipers','rifles','smg','shotguns','lmg']
         return(
             <div className='flex items-center flex-col pb-4 gap-4 w-11/12'>{this.state.isLoading ? this.loading():this.counter()}
 
                 <div className='grid gap-4 justify-start grid-cols-flexible w-full justify-items-center'>
                 
                 {this.state.isLoading ? void(0) : this.state.categorized.melee.map(skin => {
-                    return this.collection(skin)
+                    return <Card skin={skin}/>
                 })}
                 </div>
                 
@@ -130,26 +125,19 @@ class Collection extends Component{
                     <div className='grid gap-4 justify-start grid-cols-flexible w-full justify-items-center' >
                     
                     {this.state.isLoading ? void(0): this.state.categorized.sidearms.map(skin => {
-                        return this.collection(skin)
+                        return <Card skin={skin}/>
                     })}
                     </div>
                 {this.state.isLoading ? void(0): this.state.categorized.rifles.length == 0 ? void(0): <hr className="w-3/4 solid"></hr>}
                 <div className='grid gap-4 justify-start grid-cols-flexible w-full justify-items-center'>
-                {this.state.isLoading ? void(0): this.state.categorized.snipers.map(skin => {
-                    return this.collection(skin)
+                {types.map((v,i)=>{
+                    return(
+                        this.state.isLoading ? void(0): this.state.categorized[types[i]].map(skin => {
+                            return <Card skin={skin}/>
+                        }) 
+                    )                   
                 })}
-                {this.state.isLoading ? void(0): this.state.categorized.rifles.map(skin => {
-                    return this.collection(skin)
-                })}
-                {this.state.isLoading ? void(0): this.state.categorized.smg.map(skin => {
-                    return this.collection(skin)
-                })}
-                {this.state.isLoading ? void(0): this.state.categorized.shotguns.map(skin => {
-                    return this.collection(skin)
-                })}
-                {this.state.isLoading ? void(0): this.state.categorized.lmg.map(skin => {
-                    return this.collection(skin)
-                })}                
+        
                 </div>
             </div>
         )

@@ -1,5 +1,6 @@
 import react,{ useEffect,useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Card from './card'
 const Share = (props)=>{
     const url = process.env.REACT_APP_APIURL || "https://valohubapi.herokuapp.com"
     const params = useParams()
@@ -58,15 +59,17 @@ const Share = (props)=>{
         setSkins(skins)
         setLoading(0)
     }
+    let types = ['snipers','rifles','smg','shotguns','lmg']
     return(
         <div className='flex items-center justify-center'>
         <div className='flex flex-col items-center mb-8 w-11/12'>
-            <img className='w-72 m-12' src="https://i.ibb.co/h7Pv5MH/Valohub-V1-0-06.png"></img>
+            <a href={`${window.location.protocol}//${window.location.hostname}`}><img className='w-72 m-12' src="https://i.ibb.co/h7Pv5MH/Valohub-V1-0-06.png"></img></a>
+        
 
             <div className='grid gap-4 justify-start grid-cols-flexible w-full justify-items-center'>
                 
                 {isLoading ? void(0) : categorized.melee.map(skin => {
-                    return card(skin)
+                    return <Card skin={skin}/>
                 })}
                 </div>
                 
@@ -74,26 +77,19 @@ const Share = (props)=>{
                     <div className='grid gap-4 justify-start grid-cols-flexible w-full justify-items-center'>
                     
                     {isLoading ? void(0): categorized.sidearms.map(skin => {
-                        return card(skin)
+                        return <Card skin={skin}/>
                     })}
                     </div>
                 {isLoading ? void(0): categorized.rifles.length == 0 ? void(0): <hr className="w-3/4 m-4 solid"></hr>}
                 <div className='grid gap-4 justify-start grid-cols-flexible w-full justify-items-center'>
-                {isLoading ? void(0): categorized.snipers.map(skin => {
-                    return card(skin)
-                })}
-                {isLoading ? void(0): categorized.rifles.map(skin => {
-                    return card(skin)
-                })}
-                {isLoading ? void(0): categorized.smg.map(skin => {
-                    return card(skin)
-                })}
-                {isLoading ? void(0): categorized.shotguns.map(skin => {
-                    return card(skin)
-                })}
-                {isLoading ? void(0): categorized.lmg.map(skin => {
-                    return card(skin)
-                })}                
+
+                {types.map((v,i)=>{
+                    return(
+                        isLoading ? void(0): categorized[types[i]].map(skin => {
+                            return <Card skin={skin}/>
+                        }) 
+                    )                   
+                })}            
                 </div>
             
         </div>

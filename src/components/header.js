@@ -1,4 +1,4 @@
-import React, {Component,useState} from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faShop,faCrosshairs,faBriefcase,faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
 let stateFn
@@ -32,7 +32,7 @@ function Buttons(props){
         <div className='flex'>
             <FontAwesomeIcon onClick={handleButtons} className={manageButtons(props.state,2)} icon={faShop} />
             <FontAwesomeIcon onClick={handleButtons} className={manageButtons(props.state,3)} icon={faBriefcase} />
-            <FontAwesomeIcon onClick={handleButtons} className={manageButtons(props.state,4)} icon={faCrosshairs} />
+            <FontAwesomeIcon  className={"md:w-10 md:h-10 w-5 h-5 pb-1 mr-4 text-neutral-400"} icon={faCrosshairs} />
             <FontAwesomeIcon onClick={handleLogOut} className={manageButtons(props.state,5)} icon={faArrowRightFromBracket}></FontAwesomeIcon>
         </div>
     )

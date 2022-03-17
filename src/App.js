@@ -3,7 +3,7 @@ import './App.css';
 import StateManager from './components/statemanager'
 import Header from './components/header.js'
 import {ToastContainer} from 'react-toastify'
-
+import Footer from './components/footer'
 function App(){
 
   const [stage, setStage] = useState(1)
@@ -40,6 +40,7 @@ function App(){
         <StateManager state={stage} stateFn = {setStage} />
         <ToastContainer />
       </div>
+      <Footer/>
     </div>
   );
 }

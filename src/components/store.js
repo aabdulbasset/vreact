@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-
+import Card from './storecard'
 class Store extends Component {
     constructor(props){
         super(props);
@@ -24,18 +24,12 @@ class Store extends Component {
         return (
             <div className='flex flex-wrap w-[90vw] lg:w-[75vw]  gap-8 md:flex-row items-center flex-col'>
                 {this.state.daily.map(e => {
-                    return <Card icon = {e.icon}/>
+                    return <Card key={e.name} icon = {e.icon}/>
                 })}
             </div>
         )
     }
 }
 
-const Card = (props)=>{
-    return(
-        <div className='bg-modelblue rounded-2xl grow md:h-[25vh] md:w-[25vw] w-[75vw] h-[25vh] flex items-center justify-center' >
-            <img className='md:max-h-[20vh] max-h-[25vh] aspect-auto' src={props.icon}></img>
-        </div>
-    )
-}
+
 export default Store

@@ -5,9 +5,6 @@
   transition-property: width,height;
   transition-duration: 0.6s;
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
