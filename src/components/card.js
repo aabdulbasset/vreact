@@ -5,3 +5,4 @@ export default function Card(props){
         </div>
     )
 }
+//card component

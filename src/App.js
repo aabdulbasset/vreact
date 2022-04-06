@@ -36,7 +36,7 @@ function App(){
   return (
     <div>
       < Header state = {stage} stateFn = {setStage}></Header>
-      <div className='flex items-center justify-center'>
+      <div className='flex items-center justify-center flex-col gap-y-8'>
         <StateManager state={stage} stateFn = {setStage} />
         <ToastContainer />
       </div>

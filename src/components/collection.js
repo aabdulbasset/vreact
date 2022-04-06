@@ -12,21 +12,25 @@ class Collection extends Component{
             isLoading : 1,
             skins : [],
             categorized: {},
-            link: ""
+            link: "",
+            free:0,
+            previousFree:0
         }
         this.loading = this.loading.bind(this)
+        this.switch = this.switch.bind(this)
         this.handleLink = this.handleLink.bind(this)
         this.categorize = this.categorize.bind(this)
+
+        this.handleToggle = this.handleToggle.bind(this)
     }
     async componentDidMount(){
-        this.setState({isLoading:1})
         const authToken = JSON.parse(localStorage.getItem("authToken")).value
         let response = await fetch(this.props.url + "/skins",{
             method:'POST',
             headers:{
             'Content-Type': 'application/json'
             },
-            body: JSON.stringify({"authToken":authToken,"entToken":localStorage.getItem("entToken"),"sub":localStorage.getItem("sub")})
+            body: JSON.stringify({"authToken":authToken,"entToken":localStorage.getItem("entToken"),"sub":localStorage.getItem("sub"),"free":this.state.free})
             })
         const skins = await response.json()
         this.categorize(skins)
@@ -34,6 +38,25 @@ class Collection extends Component{
         clipped = new ClipboardJS('.copyBtn')
         this.setState({isLoading:0})
         
+    }
+    async componentDidUpdate(){
+
+        if(this.state.free!=this.state.previousFree && this.state.isLoading==0){
+            this.setState({previousFree:this.state.free,isLoading:1})
+            const authToken = JSON.parse(localStorage.getItem("authToken")).value
+            console.log("UPDATING")
+            let response = await fetch(this.props.url + "/skins",{
+                method:'POST',
+                headers:{
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"authToken":authToken,"entToken":localStorage.getItem("entToken"),"sub":localStorage.getItem("sub"),"free":this.state.free})
+                })
+            const skins = await response.json()
+            this.categorize(skins)
+            this.handleLink()
+            this.setState({isLoading:0})
+        }
     }
     categorize(skins){
         let sidearms = []
@@ -104,16 +127,36 @@ class Collection extends Component{
     }
     counter(){
         
-        return <div className='p-4 bg-modelblue rounded-md mb-4 cursor-pointer copyBtn' onClick ={this.toast} data-clipboard-text={this.state.link}>
+        return (<><div className='p-4 bg-modelblue rounded-md mb-4 cursor-pointer copyBtn' onClick ={this.toast} data-clipboard-text={this.state.link}>
             <h1 className='text-center text-white'>You have {this.state.skins.length} skin/s !</h1>
             <h1 className='text-white'>Click here to copy link</h1>
+            
         </div>
+        </>)
     }
+    async handleToggle(){
+        this.setState({free:this.state.free^1})
+
+    }
+    switch(){
+        return(
+            <>
+            <h1>BP skins</h1>
+            <label className="switch inline" > 
+                <input type="checkbox" onClick={this.handleToggle}/>
+                <span className="slider round"></span>
+            </label>
+            </>
+        )
+    }
+
     render(){
         let types = ['snipers','rifles','smg','shotguns','lmg']
         return(
-            <div className='flex items-center flex-col pb-4 gap-4 w-11/12'>{this.state.isLoading ? this.loading():this.counter()}
-
+            <div className='flex items-center flex-col pb-4 gap-4 w-11/12'>{this.state.isLoading ? this.loading():this.counter()
+                
+            }
+                {this.switch()}
                 <div className='grid gap-4 justify-start grid-cols-flexible w-full justify-items-center'>
                 
                 {this.state.isLoading ? void(0) : this.state.categorized.melee.map(skin => {
