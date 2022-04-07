@@ -31,7 +31,8 @@ class Store extends Component {
             body: JSON.stringify(data)
         })
         const jsonSkin = await response.json()
-        if(jsonSkin.hasnight == "true"){
+        console.log(jsonSkin)
+        if(jsonSkin.hasnight == true){
             this.setState({night:true,daily:jsonSkin.daily,nightArray:jsonSkin.night})
         }else{
             this.setState({daily:jsonSkin.daily})
@@ -42,6 +43,7 @@ class Store extends Component {
         this.setState({nightModal:false})
     }
     render(){
+        console.log(this.state)
         const noNightButtonClass = "bg-gray-500 cursor-default" 
         return (
             <>
