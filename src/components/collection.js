@@ -50,7 +50,7 @@ class Collection extends Component{
                 headers:{
                 'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({"authToken":authToken,"entToken":localStorage.getItem("entToken"),"sub":localStorage.getItem("sub"),"free":this.state.free})
+                body: JSON.stringify({"authToken":authToken,"entToken":localStorage.getItem("entToken"),"sub":localStorage.getItem("sub"),"free":this.state.free,"region":localStorage.getItem("region")})
                 })
             const skins = await response.json()
             this.categorize(skins)
