@@ -22,7 +22,7 @@ class Store extends Component {
     }
     async componentDidMount(){
         const authToken = JSON.parse(localStorage.getItem("authToken"))
-        const data = {"authToken":authToken.value,"entToken":localStorage.getItem("entToken"),"sub":localStorage.getItem("sub")}
+        const data = {"authToken":authToken.value,"entToken":localStorage.getItem("entToken"),"sub":localStorage.getItem("sub"),"region":localStorage.getItem("region")}
         const response = await fetch(this.props.url+"/store",{
             method:'POST',
             headers : {

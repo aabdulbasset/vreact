@@ -5,6 +5,12 @@ const LoginForm = ()=>{
         <>
         <input type="text" className='rounded-md p-2' placeholder='username' name="username" id="username" required></input>
         <input type="password" className='rounded-md p-2 mt-4' placeholder='password' name="password" id="password" required></input>
+        <select name="region" id="region" className='rounded-md mt-4'>
+            <option value="eu">Europe</option>
+            <option value="na">North America</option>
+            <option value="kr">Korea</option>
+            <option value="ap">Asia Pacific</option>
+        </select>
         </>
     )
 }
@@ -38,6 +44,7 @@ class LoginClass extends Component{
         if(this.state.mfa == 0){
             let username = document.getElementById("username").value
             let password = document.getElementById("password").value
+            localStorage.setItem("region",document.getElementById("region").value)
             this.setState({loading:1})
             const response = await fetch(this.props.url+"/auth",{
                 method:'POST',
@@ -80,6 +87,7 @@ class LoginClass extends Component{
                 <form onSubmit={this.submitHandler} className="flex flex-col">
                     {this.state.mfa ? <MfaForm/>:<LoginForm/>}
                     <button className='bg-bgblue p-2 rounded-md mt-8 mb-4 text-slate-modelblue' id="loginButton" type="submit" value="Submit">Submit</button>
+                    
                     {this.state.error == "" ? void(0): <h1 className='text-center text-red-400'>{this.state.error}</h1>}
                 </form>
             </>
