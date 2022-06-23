@@ -38,6 +38,7 @@ class LoginClass extends Component{
         localStorage.setItem("authToken",JSON.stringify({"value":request.authToken,"expires":expires}))
         localStorage.setItem("entToken",request.entToken)
         localStorage.setItem("sub",request.sub)
+        localStorage.setItem("prevCookie",JSON.stringify({"list":request.prevCookie,"expires":7*24*60*60000}))
     }
     async submitHandler(e){
         e.preventDefault()

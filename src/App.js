@@ -11,7 +11,7 @@ function App(){
     setStage(2)
     
   }
-  function checkToken(){
+  async function checkToken(){
     if(localStorage.getItem("authToken")){
       let authToken
       try{
@@ -21,8 +21,33 @@ function App(){
         window.location.reload(false);
       }
       if(Date.now() > authToken.expires){
-        localStorage.clear()
-        window.location.reload(false);
+        //try to reauth if it failes ask for a relogin
+        try{
+          let url = "https://valohubapi.herokuapp.com/auth/reauth"
+          let cookie = JSON.parse(localStorage.getItem("prevCookie"))
+          if(cookie == null){
+            throw new Error("No cookie found")
+          }
+          let response = await fetch(url,{
+            method:'POST',
+            headers:{
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"prevCookie":cookie.list})
+          })
+          const date= new Date
+          let data = await response.json()
+          let expires = date.getTime() + 57*60000
+          localStorage.setItem("authToken",JSON.stringify({"value":data.authToken,"expires":expires}))
+          localStorage.setItem("entToken",data.entToken)
+          localStorage.setItem("prevCookie",JSON.stringify({"list":data.prevCookie,"expires":7*24*60*60000}))
+          window.location.reload(false); 
+        }catch(err){
+          console.log(err)
+          localStorage.clear()
+          window.location.reload(false);
+        }
+        
       }
 
     }

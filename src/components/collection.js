@@ -142,7 +142,7 @@ class Collection extends Component{
     switch(){
         return(
             <>
-            <h1>BP skins</h1>
+            <h1>All skins</h1>
             <label className="switch inline" > 
                 <input type="checkbox" onClick={this.handleToggle}/>
                 <span className="slider round"></span>
